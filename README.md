@@ -17,6 +17,17 @@ Safesight uses a small but focused custom image dataset of dashcam-style scenes.
 # Experiments
 I conducted several experiments to visualize and understand the dataset. Some of the experiments you will find in my repository range from Batch size and learner rate comparisons to data augmentation and architecture comparison.
 
+# Summary Table
+| Chart Type               | Final Filename                    | Folder        |
+| ------------------------ | --------------------------------- | ------------- |
+| Batch size comparison    | `batch_size_comparison.png`       | assets/images |
+| Learning rate comparison | `learning_rate_comparison.png`    | assets/images |
+| AlexNet confusion matrix | `confusion_matrix_alexnet.png`    | assets/images |
+| ResNet confusion matrix  | `confusion_matrix_resnet.png`     | assets/images |
+| ResNet accuracy curve    | `resnet_train_valid_accuracy.png` | assets/images |
+| ResNet loss curve        | `resnet_train_valid_loss.png`     | assets/images |
+
+
 # Key Takeaways
 Transfer learning works extremely well - A pretrained AlexNet dramatically outperforms an untrained AlexNet on a small, custom dataset.
 Data quality matters - Having clear, on-topic images for each class is crucial for reliable wildlife detection.
