@@ -1,14 +1,26 @@
 # SafeSight
 Welcome to SafeSight, Preventing Accidents with AI-Powered Wildlife Detection
 
+AlexNet Final Project
+Presented By: Brioncka Russell
+Class: MAP2192 Mathematics Of Data Science
+Semester: Fall 20225
+Professor: William Hahn
+
+
 # The Problem
-People are losing their lives to wildlife vs vehicle accidents at alarming rates. SafeSight provides AI powered accident prevention through wildlife detection software ran by AlexNet.
+Many lives are lost to unsuspected wildlife and motor vehicle collisions accross The United States and the world as a whole. I was motivated to create something that preserves human life and provides overall benefits to individuals an companies alike.
 
 # The Dataset
-Diverse real time images were used to create this software. The data was split into two sets, the "Train" or training set and the "valid" or validation set. I used a total of 360 images with a 60/40 ratio. 60% being the training data and 40% being the validation data.
+Safesight uses a small but focused custom image dataset of dashcam-style scenes. I collected around 320 images from Google Images across two classes: deer and nodeer. After cleaning and loading, the final dataset used for training contains 192 training images and 115 validation images (roughly a 60/40 split), organized into train/deer, train/nodeer, valid/deer, and valid/nodeer.
 
 # Experiments
 I conducted several experiments to visualize and understand the dataset. Some of the experiments you will find in my repository range from Batch size and learner rate comparisons to data augmentation and architecture comparison.
+
+# Key Takeaways
+Transfer learning works extremely well - A pretrained AlexNet dramatically outperforms an untrained AlexNet on a small, custom dataset.
+Data quality matters - Having clear, on-topic images for each class is crucial for reliable wildlife detection.
+Experiment tracking helps - Using Weights & Biases made it easy to compare dozens of runs and clearly see the gap between pretrained and untrained models.
 
 # Google Colab Link
 https://colab.research.google.com/drive/1tW3QHN380WdVEltBKYO9OifVpo18hqRk?authuser=2
