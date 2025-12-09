@@ -28,20 +28,40 @@ a:hover {
   padding: 0 16px;
 }
 
-/* Header / Nav */
+/* =============================== */
+/* HEADER AREA (Original) */
+/* =============================== */
+header {
+  background: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 1px solid #e6edf2;
+}
+
+header .logo {
+  width: 180px;
+  display: block;
+  margin: 0 auto;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #2c3e50;
+}
 <header>
-  <img
-    src="assets/images/safesight-logo.png"
-    class="logo"
+  <img 
+    src="assets/images/safesight-logo.png" 
+    class="logo" 
     alt="SafeSight Logo"
   />
 
-  <h1 class="tagline">
-    MAP2192 Final AlexNet Project • Prepared by Brioncka Russell •
-    Mathematics for Data Science — Professor William Hahn
+  <h1>
+    MAP2192 Final AlexNet Project — Prepared by Brioncka Russell — 
+    Mathematics for Data Science, Professor William Hahn
   </h1>
 </header>
-
 
 .brand {
   display: flex;
