@@ -29,22 +29,19 @@ a:hover {
 }
 
 /* Header / Nav */
-.site-header {
-  background: linear-gradient(135deg, #102a43, #0b1720);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
+<header>
+  <img
+    src="assets/images/safesight-logo.png"
+    class="logo"
+    alt="SafeSight Logo"
+  />
 
-.header-project-info strong {
-  color: #ffffff;
-}
+  <h1 class="tagline">
+    MAP2192 Final AlexNet Project • Prepared by Brioncka Russell •
+    Mathematics for Data Science — Professor William Hahn
+  </h1>
+</header>
 
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-  gap: 16px;
-}
 
 .brand {
   display: flex;
