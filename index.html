@@ -60,41 +60,66 @@
 
     <!-- Project at a Glance -->
     <section class="section section-alt">
-      <div class="container">
-        <h2>Project at a Glance</h2>
-        <div class="card-grid">
-          <div class="card">
-            <h3>Dataset</h3>
-            <p>
-              Around <strong>320 dashcam-style images</strong> collected from Google Images, split into two
-              classes: <strong>deer</strong> and <strong>nodeer</strong>. After loading and filtering, the final
-              dataset used for training contained <strong>192 training images</strong> and
-              <strong>115 validation images</strong> (roughly a 60/40 split).
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Model</h3>
-            <p>
-              Safesight uses <strong>AlexNet</strong> for binary image classification, detecting whether wildlife
-              is present on a driver’s route. A <strong>pretrained AlexNet on ImageNet</strong> is fine-tuned for
-              the deer vs nodeer task and compared against <strong>untrained (randomly initialized)</strong>
-              AlexNet.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Performance</h3>
-            <p>
-              The best pretrained run (<code>pretrained_run_011</code>) reached a
-              <strong>best validation accuracy of 0.9913 (≈ 99.1%)</strong>. Across runs, pretrained AlexNet
-              typically achieved <strong>≈ 0.97–0.99</strong> validation accuracy, while untrained AlexNet stayed
-              around <strong>≈ 0.85–0.90</strong>.
-            </p>
-          </div>
-        </div>
+  <div class="container">
+    <h2>Project at a Glance</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Dataset</h3>
+        <p>
+          Safesight uses a small but focused custom image dataset of dashcam-style scenes.
+          I collected around <strong>320 images</strong> from Google Images across two classes:
+          <strong>deer</strong> and <strong>nodeer</strong>. After cleaning and loading, the final dataset
+          used for training contains <strong>192 training images</strong> and
+          <strong>115 validation images</strong> (roughly a 60/40 split), organized into
+          <code>train/deer</code>, <code>train/nodeer</code>, <code>valid/deer</code>, and
+          <code>valid/nodeer</code>.
+        </p>
       </div>
-    </section>
+
+      <div class="card">
+        <h3>Model</h3>
+        <p>
+          The core model is a <strong>pretrained AlexNet</strong> adapted for binary classification
+          (deer vs nodeer) by replacing the final classifier layer with two output units. I use
+          <strong>transfer learning</strong> from ImageNet so the network can reuse strong visual
+          features and fine-tune them on wildlife detection. For comparison, I also trained an
+          <strong>untrained AlexNet</strong> (random initialization) and a deeper
+          <strong>ResNet18</strong> model on the same dataset.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Performance</h3>
+        <p>
+          Experiments were tracked with <strong>Weights &amp; Biases (W&amp;B)</strong> to compare
+          batch sizes, learning rates, data augmentation, and architectures:
+        </p>
+        <ul>
+          <li>
+            <strong>Best pretrained AlexNet:</strong> validation accuracy up to
+            <strong>0.9826 (≈ 98.3%)</strong> with batch size 16, learning rate 0.0001, and augmentation.
+          </li>
+          <li>
+            <strong>Typical strong AlexNet runs:</strong> validation accuracy in the
+            <strong>0.96–0.98</strong> range with batch sizes 32 and 64 at learning rate 0.0001.
+          </li>
+          <li>
+            <strong>Untrained AlexNet:</strong> training from scratch on the same data reached only
+            about <strong>0.80 (80%)</strong> validation accuracy, showing the benefit of transfer learning.
+          </li>
+          <li>
+            <strong>ResNet18 (pretrained):</strong> achieved <strong>1.00 (100%)</strong> validation
+            accuracy with very low validation loss, slightly outperforming AlexNet on this task.
+          </li>
+        </ul>
+        <p>
+          Overall, the results suggest that pretrained convolutional networks, especially ResNet18, can
+          reliably detect deer vs nodeer even with a relatively small, real-world style dataset.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Training Dynamics -->
     <section class="section">
