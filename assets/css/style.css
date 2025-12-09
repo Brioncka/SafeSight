@@ -283,3 +283,67 @@ main p {
   }
 }
 
+/* HEADER FIX — DARK BACKGROUND + WHITE TEXT */
+.site-header {
+  background: #0b1b26; /* deep slate blue/teal tone */
+  padding: 40px 0;
+  text-align: center;
+}
+
+.header-overlay {
+  max-width: 900px;
+  margin: 0 auto;
+  color: white;
+}
+
+.site-header .logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: white;
+  padding: 8px;
+}
+
+.site-header .title {
+  font-size: 2.2rem;
+  margin: 10px 0 0;
+  color: white;
+}
+
+.site-header .subtitle {
+  font-size: 1.1rem;
+  margin-top: 4px;
+  color: #d0eaff; /* soft blue accent */
+}
+
+.course-info p {
+  margin: 3px 0;
+  font-size: 1rem;
+  color: #f1f1f1;
+}
+
+/* NAV STYLE */
+.nav {
+  margin-top: 20px;
+}
+
+.nav-link {
+  color: white;
+  padding: 10px 18px;
+  margin: 0 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.nav-link.active {
+  background: rgba(255,255,255,0.35);
+  color: #072d3d;
+  font-weight: bold;
+}
