@@ -1,172 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Safesight – Preventing Accidents with AI-Powered Wildlife Detection</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-content">
-      <div class="logo-title">
-        <img src="assets/images/safesight-logo.png" alt="Safesight logo" class="logo">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/images/safesight-logo.png" alt="Safesight logo" class="logo" />
         <div>
           <h1>Safesight</h1>
-          <p class="subtitle">Preventing Accidents with AI-Powered Wildlife Detection</p>
+          <p class="tagline">Preventing Accidents with AI-Powered Wildlife Detection</p>
         </div>
       </div>
-      <nav class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="approach.html">Approach</a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="approach.html" class="nav-link">Approach</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container hero-grid">
+    <!-- Hero / Motivation -->
+    <section class="section hero">
+      <div class="container hero-inner">
         <div class="hero-text">
           <h2>Why Safesight?</h2>
           <p>
-            The problem is that many people lose their lives due to unsuspected deer 
-            and other wildlife collisions while operating their motor vehicle. 
-            My motivation behind this project is to preserve human life and create 
-            an opportunity for drivers to safely travel and detect wildlife on the roadway 
-            and avoid colliding with it.
+            The problem is that many people lose their lives due to unsuspected deer and other wildlife
+            collisions while operating their motor vehicle. My motivation behind this project is to preserve
+            human life and create an opportunity for drivers to safely travel and detect wildlife on the
+            roadway and avoid colliding with it.
           </p>
           <p>
-            Safesight explores how a computer-vision model (AlexNet) can detect wildlife 
-            on a driver’s route using dashcam-style images, laying the groundwork for 
-            future in-car safety systems.
+            Safesight explores how a computer-vision model (AlexNet) can detect wildlife on a driver’s route
+            using dashcam-style images, laying the groundwork for future in-car safety systems.
           </p>
-          <a href="approach.html" class="btn-primary">See the Technical Approach</a>
+          <a href="approach.html" class="btn-primary">See the technical approach →</a>
         </div>
+
         <div class="hero-image-card">
-          <img src="assets/images/sample-predictions.png" alt="Sample Safesight predictions" class="hero-img">
-          <p class="image-caption">
-            Sample Safesight predictions on images containing deer and non-deer scenes.
+          <img src="assets/images/sample-predictions.png" alt="Sample Safesight predictions" />
+          <p class="img-caption">
+            Example predictions on scenes containing deer and non-deer views.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Key Stats / Summary Section -->
-    <section class="section-light">
+    <!-- Project at a Glance -->
+    <section class="section section-alt">
       <div class="container">
         <h2>Project at a Glance</h2>
-        <div class="grid-3">
+        <div class="card-grid">
           <div class="card">
             <h3>Dataset</h3>
             <p>
-              Around <strong>300 dashcam-style images</strong> collected from Google Images, 
-              split into two classes: <strong>deer</strong> and <strong>nodeer</strong>. 
-              After loading and filtering, the final dataset used for training contained 
-              <strong>192 training</strong> images and <strong>115 validation</strong> images 
-              (roughly a 60/40 split).
+              Around <strong>320 dashcam-style images</strong> collected from Google Images, split into two
+              classes: <strong>deer</strong> and <strong>nodeer</strong>. After loading and filtering, the final
+              dataset used for training contained <strong>192 training images</strong> and
+              <strong>115 validation images</strong> (roughly a 60/40 split).
             </p>
           </div>
+
           <div class="card">
             <h3>Model</h3>
             <p>
-              Safesight uses <strong>AlexNet</strong> for binary image classification, 
-              detecting whether wildlife is present on a driver’s route. 
-              A pretrained AlexNet on ImageNet is fine-tuned for the deer vs nodeer task 
-              and compared against untrained (randomly initialized) AlexNet.
+              Safesight uses <strong>AlexNet</strong> for binary image classification, detecting whether wildlife
+              is present on a driver’s route. A <strong>pretrained AlexNet on ImageNet</strong> is fine-tuned for
+              the deer vs nodeer task and compared against <strong>untrained (randomly initialized)</strong>
+              AlexNet.
             </p>
           </div>
+
           <div class="card">
             <h3>Performance</h3>
             <p>
-              The best pretrained run reached a validation accuracy of 
-              <strong>0.9913 (≈ 99.1%)</strong>. Across runs, pretrained AlexNet typically 
-              achieved <strong>~0.97–0.99</strong> validation accuracy, while untrained 
-              AlexNet stayed around <strong>0.85–0.90</strong>.
+              The best pretrained run (<code>pretrained_run_011</code>) reached a
+              <strong>best validation accuracy of 0.9913 (≈ 99.1%)</strong>. Across runs, pretrained AlexNet
+              typically achieved <strong>≈ 0.97–0.99</strong> validation accuracy, while untrained AlexNet stayed
+              around <strong>≈ 0.85–0.90</strong>.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Training Curves Section -->
-    <section class="section-dark">
+    <!-- Training Dynamics -->
+    <section class="section">
       <div class="container">
         <h2>Training Dynamics</h2>
-        <div class="grid-2">
-          <div class="card card-dark">
+        <div class="card-grid two-col">
+          <div class="card">
             <h3>Loss Curve</h3>
-            <img src="assets/images/training-loss.png" alt="Training and validation loss curves" class="plot-img">
-            <p class="image-caption">
-              Training vs. validation loss over 30 epochs. The pretrained runs quickly drive 
-              loss down and stabilize at a low validation loss (around 0.10–0.20), while 
-              untrained runs remain noticeably higher and more unstable.
+            <img
+              src="assets/images/training-loss.png"
+              alt="Training and validation loss curves"
+              class="img-responsive"
+            />
+            <p class="img-caption">
+              Training vs. validation loss over 30 epochs. Pretrained runs quickly drive loss down and stabilize
+              at a low validation loss (around 0.10–0.20), while untrained runs remain noticeably higher and
+              more unstable.
             </p>
           </div>
-          <div class="card card-dark">
+
+          <div class="card">
             <h3>Accuracy Curve</h3>
-            <img src="assets/images/accuracy-curve.png" alt="Training and validation accuracy curves" class="plot-img">
-            <p class="image-caption">
-              Training vs. validation accuracy over 30 epochs. Pretrained AlexNet climbs to 
-              high validation accuracy (≈97–99%) within a few epochs and stays there, 
-              whereas untrained AlexNet improves more slowly and plateaus around 85–90%.
+            <img
+              src="assets/images/accuracy-curve.png"
+              alt="Training and validation accuracy curves"
+              class="img-responsive"
+            />
+            <p class="img-caption">
+              Training vs. validation accuracy over 30 epochs. Pretrained AlexNet climbs to high validation accuracy
+              (≈ 97–99%) within a few epochs and stays there, whereas untrained AlexNet improves more slowly and
+              plateaus around 85–90%.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Lessons & Future Work -->
-    <section class="section-light">
+    <!-- Learnings -->
+    <section class="section section-alt">
       <div class="container">
-        <h2>What I Learned &amp; What’s Next</h2>
-        <div class="grid-2">
-          <div>
+        <h2>What I Learned & What’s Next</h2>
+
+        <div class="card-grid three-col">
+          <div class="card">
             <h3>Key Takeaways</h3>
             <ul>
               <li>
-                <strong>Transfer learning works extremely well</strong>: 
-                a pretrained AlexNet dramatically outperforms an untrained AlexNet on a small, custom dataset.
+                <strong>Transfer learning works extremely well:</strong> a pretrained AlexNet dramatically
+                outperforms an untrained AlexNet on a small, custom dataset.
               </li>
               <li>
-                <strong>Data quality matters</strong>: having clear, on-topic images for each class is 
-                crucial for reliable wildlife detection.
+                <strong>Data quality matters:</strong> having clear, on-topic images for each class is crucial for
+                reliable wildlife detection.
               </li>
               <li>
-                <strong>Experiment tracking helps</strong>: using Weights &amp; Biases made it easy to compare 
-                dozens of runs and clearly see the gap between pretrained and untrained models.
+                <strong>Experiment tracking helps:</strong> using Weights &amp; Biases made it easy to compare dozens
+                of runs and clearly see the gap between pretrained and untrained models.
               </li>
             </ul>
           </div>
-          <div>
+
+          <div class="card">
             <h3>Future Work</h3>
             <ul>
               <li>
-                Collect more diverse, real dashcam footage (nighttime, rain, fog) to better reflect 
-                real-world driving scenarios.
+                Collect more diverse, real dashcam footage (nighttime, rain, fog) to better reflect real-world
+                driving scenarios.
               </li>
               <li>
-                Extend beyond binary deer/nodeer to multi-class wildlife detection 
-                (e.g., deer, elk, moose, other animals, no animal).
+                Extend beyond binary deer/nodeer to multi-class wildlife detection (deer, elk, moose, other
+                animals, no animal).
               </li>
               <li>
-                Prototype an in-car or mobile app that could run a lightweight version of the model 
-                in real time as a driver assistance tool.
+                Prototype an in-car or mobile app that could run a lightweight version of the model in real time
+                as a driver assistance tool.
               </li>
             </ul>
           </div>
+
+          <div class="card">
+            <h3>Want the Details?</h3>
+            <p>
+              For a deeper dive into the dataset, AlexNet architecture changes, and the full set of pretrained vs
+              untrained experiments, check out the full technical breakdown.
+            </p>
+            <a href="approach.html" class="btn-secondary">Technical approach &amp; results →</a>
+          </div>
         </div>
-        <p class="more-link">
-          Want the details? Check out the <a href="approach.html">technical approach &amp; experiment results</a>.
-        </p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-content">
-      <p>&copy; Safesight – AlexNet Wildlife Detection Project</p>
+    <div class="container">
+      <p>© Safesight – AlexNet Wildlife Detection Project</p>
     </div>
   </footer>
 </body>
 </html>
+
