@@ -276,77 +276,142 @@
     </div>
   </div>
 </section>
+<!-- =============================== -->
+<!-- Combined Experiment + Model Comparison Section -->
+<!-- =============================== -->
 
-    <section class="section section-alt">
+<section class="section">
   <div class="container">
-    <h2>Experiment Results & Visualizations</h2>
+    <h2>Experiment Comparisons & Model Performance</h2>
+
+    <p>
+      To deeply evaluate how different choices impact model performance on the deer vs
+      nodeer dataset, several controlled experiments were run. These included varying
+      batch size, learning rate, augmentation strategy, and comparing AlexNet against a
+      deeper architecture (ResNet18). The results below summarize the key findings.
+    </p>
+
+    <!-- =============================== -->
+    <!-- Batch Size Comparison -->
+    <!-- =============================== -->
+    <div class="card">
+      <h3>Batch Size Comparison</h3>
+      <img
+        src="assets/images/batch_size_comparison.png"
+        alt="Bar chart comparing validation accuracy for different batch sizes"
+        class="img-responsive"
+      />
+      <p class="img-caption">
+        Batch size strongly influences learning stability. Batch sizes of
+        <strong>16</strong> and <strong>64</strong> gave the best results for pretrained
+        AlexNet, typically reaching <strong>97–98% validation accuracy</strong>. Medium
+        batch sizes like 32 also performed well, while very high or very low batch sizes
+        often generalize more poorly on small datasets.
+      </p>
+    </div>
+
+    <!-- =============================== -->
+    <!-- Learning Rate Comparison -->
+    <!-- =============================== -->
+    <div class="card">
+      <h3>Learning Rate Comparison</h3>
+      <img
+        src="assets/images/learning_rate_comparison.png"
+        alt="Bar chart comparing validation accuracy for different learning rates"
+        class="img-responsive"
+      />
+      <p class="img-caption">
+        Learning rate had the largest effect on performance. A lower rate of
+        <strong>0.0001</strong> consistently outperformed a higher rate of
+        <strong>0.001</strong>, which caused noisy training and lower validation accuracy
+        (dropping into the <strong>50–60%</strong> range). Smaller learning rates help
+        pretrained models fine-tune smoothly without overshooting.
+      </p>
+    </div>
+
+    <!-- =============================== -->
+    <!-- Augmentation Effect -->
+    <!-- =============================== -->
+    <div class="card">
+      <h3>Effect of Data Augmentation</h3>
+      <p>
+        Augmentation (random horizontal flips, resizing) improved generalization and helped
+        avoid overfitting on the small dataset. Runs with augmentation produced smoother
+        training curves and slightly higher validation accuracy compared to
+        augmentation-free training.
+      </p>
+    </div>
+
+    <!-- =============================== -->
+    <!-- Model Comparison Panel -->
+    <!-- =============================== -->
+    <h3>Model Comparison: AlexNet vs ResNet18</h3>
 
     <div class="card-grid two-col">
       <div class="card">
-        <h3>AlexNet vs ResNet18 – Accuracy</h3>
-        <img
-          src="assets/images/resnet_train_valid_accuracy.png"
-          alt="ResNet18 training and validation accuracy over epochs"
-          class="img-responsive"
-        />
-        <p class="img-caption">
-          Training and validation accuracy for pretrained ResNet18 compared to AlexNet.
-          ResNet18 reaches <strong>100% validation accuracy</strong> and stays there with
-          very low variance, while AlexNet typically peaks in the <strong>97–98%</strong>
-          range. This suggests that the deeper residual architecture can extract slightly
-          stronger features for this wildlife detection task.
-        </p>
+        <h4>AlexNet Summary</h4>
+        <ul>
+          <li>Best validation accuracy: <strong>98.26%</strong></li>
+          <li>Typical performance: <strong>95–97%</strong></li>
+          <li>Sensitive to learning rate — high LR (0.001) reduces accuracy drastically</li>
+          <li>Benefits significantly from augmentation</li>
+        </ul>
       </div>
 
       <div class="card">
-        <h3>AlexNet vs ResNet18 – Loss</h3>
-        <img
-          src="assets/images/resnet_train_valid_loss.png"
-          alt="ResNet18 training and validation loss over epochs"
-          class="img-responsive"
-        />
-        <p class="img-caption">
-          Validation loss for ResNet18 drops extremely low (close to zero) and stays stable
-          across epochs, indicating very confident and consistent predictions on the validation
-          set. AlexNet also achieves low loss, but ResNet18 converges faster and to a smaller
-          final loss, aligning with its perfect validation accuracy.
-        </p>
+        <h4>ResNet18 Summary</h4>
+        <ul>
+          <li>Best validation accuracy: <strong>100%</strong></li>
+          <li>Extremely low validation loss (~0.003)</li>
+          <li>Fast convergence thanks to skip connections</li>
+          <li>Most stable and highest-performing model in all experiments</li>
+        </ul>
       </div>
     </div>
 
+    <p>
+      Overall, <strong>ResNet18 outperformed AlexNet</strong> across every metric. This is
+      expected: ResNet’s residual blocks help deeper networks learn effectively without
+      vanishing gradients. For small datasets like this one, ResNet18 has a strong
+      advantage in extracting high-quality features and maintaining stability.
+    </p>
+
+    <!-- =============================== -->
+    <!-- Confusion Matrices -->
+    <!-- =============================== -->
     <div class="card-grid two-col">
       <div class="card">
-        <h3>AlexNet Confusion Matrix</h3>
+        <h3>AlexNet – Confusion Matrix</h3>
         <img
           src="assets/images/confusion_matrix_alexnet.png"
-          alt="Confusion matrix for AlexNet on validation data"
+          alt="Confusion matrix for AlexNet"
           class="img-responsive"
         />
         <p class="img-caption">
-          Confusion matrix for the best pretrained AlexNet run. Most examples are correctly
-          classified as <strong>deer</strong> or <strong>nodeer</strong>, with only a small
-          number of misclassifications. This shows that AlexNet learns a strong decision
-          boundary, but still makes occasional mistakes on challenging edge cases.
+          AlexNet performs well with only a few misclassifications, showing it learns a
+          strong decision boundary but may struggle with edge-case lighting or partially
+          obstructed deer images.
         </p>
       </div>
 
       <div class="card">
-        <h3>ResNet18 Confusion Matrix</h3>
+        <h3>ResNet18 – Confusion Matrix</h3>
         <img
           src="assets/images/confusion_matrix_resnet.png"
-          alt="Confusion matrix for ResNet18 on validation data"
+          alt="Confusion matrix for ResNet18"
           class="img-responsive"
         />
         <p class="img-caption">
-          Confusion matrix for pretrained ResNet18. All validation images fall on the
-          diagonal, meaning every <strong>deer</strong> and <strong>nodeer</strong> image
-          was classified correctly (100% validation accuracy). On this dataset, ResNet18
-          fully separates the two classes.
+          ResNet18 achieved <strong>perfect separation</strong> on the validation set.
+          Every deer and nodeer image was classified correctly, matching the 100% validation
+          accuracy observed in training curves.
         </p>
       </div>
     </div>
+
   </div>
 </section>
+
 
     <section class="section section-alt">
       <div class="container">
