@@ -1,79 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Safesight – Technical Approach & Results</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-content">
-      <div class="logo-title">
-        <img src="assets/images/safesight-logo.png" alt="Safesight logo" class="logo">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/images/safesight-logo.png" alt="Safesight logo" class="logo" />
         <div>
           <h1>Safesight</h1>
-          <p class="subtitle">Preventing Accidents with AI-Powered Wildlife Detection</p>
+          <p class="tagline">Preventing Accidents with AI-Powered Wildlife Detection</p>
         </div>
       </div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="approach.html" class="active">Approach</a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="approach.html" class="nav-link active">Approach</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Overview -->
-    <section class="section-light">
+    <section class="section hero-sm">
       <div class="container">
         <h2>Technical Overview</h2>
         <p>
-          Safesight is an image classification project that uses AlexNet to determine 
-          whether wildlife (specifically deer) is present on a driver’s route. 
-          The goal is to explore how deep learning can help reduce wildlife–vehicle collisions 
-          by warning drivers before a potential impact.
+          Safesight is an image classification project that uses <strong>AlexNet</strong> to determine whether
+          wildlife (specifically deer) is present on a driver’s route. The goal is to explore how deep learning
+          can help reduce wildlife–vehicle collisions by warning drivers before a potential impact.
         </p>
         <p>
           To understand the impact of transfer learning, I compared three types of experiments:
-          (1) a baseline AlexNet, (2) an untrained AlexNet with random initialization, and 
-          (3) a pretrained AlexNet fine-tuned on my deer vs nodeer dataset.
+          <strong>(1) baseline AlexNet</strong>, <strong>(2) untrained AlexNet</strong> with random initialization,
+          and <strong>(3) pretrained AlexNet</strong> fine-tuned on my deer vs nodeer dataset.
         </p>
       </div>
     </section>
 
-    <!-- Dataset Section -->
-    <section class="section-dark">
+    <section class="section section-alt">
       <div class="container">
         <h2>Dataset</h2>
-        <div class="grid-2">
-          <div>
+
+        <div class="card-grid two-col">
+          <div class="card">
             <h3>Data Collection</h3>
             <ul>
-              <li><strong>Total images collected:</strong> ~320 Google Images results</li>
-              <li><strong>Final images used after loading:</strong> 307 (192 train, 115 validation)</li>
-              <li><strong>Classes:</strong> deer, nodeer</li>
+              <li>Total images collected: ~<strong>320</strong> Google Images results.</li>
+              <li>Final images used after loading: <strong>307</strong> (192 train, 115 validation).</li>
+              <li>Classes: <strong>deer</strong>, <strong>nodeer</strong>.</li>
               <li>
-                <strong>Goal:</strong> simulate dashcam-style views where a driver might encounter 
-                wildlife on or near the road.
+                Goal: simulate dashcam-style views where a driver might encounter wildlife on or near the road.
               </li>
             </ul>
           </div>
-          <div>
-            <h3>Split Strategy & Organization</h3>
+
+          <div class="card">
+            <h3>Split Strategy &amp; Organization</h3>
             <ul>
-              <li><strong>Training set:</strong> 192 images (≈ 62%)</li>
-              <li><strong>Validation set:</strong> 115 images (≈ 38%)</li>
+              <li>Training set: <strong>192</strong> images (≈ 62%).</li>
+              <li>Validation set: <strong>115</strong> images (≈ 38%).</li>
+              <li>Folder structure:</li>
+              <ul>
+                <li><code>train/deer</code> and <code>train/nodeer</code></li>
+                <li><code>valid/deer</code> and <code>valid/nodeer</code></li>
+              </ul>
               <li>
-                Folder structure:
-                <ul>
-                  <li><code>train/deer</code> and <code>train/nodeer</code></li>
-                  <li><code>valid/deer</code> and <code>valid/nodeer</code></li>
-                </ul>
-              </li>
-              <li>
-                Simple data augmentations such as random flips and crops can help imitate small 
-                viewpoint changes a driver might experience.
+                Simple data augmentations such as random flips and crops help imitate small viewpoint changes a
+                driver might experience.
               </li>
             </ul>
           </div>
@@ -81,44 +77,42 @@
       </div>
     </section>
 
-    <!-- AlexNet Setup -->
-    <section class="section-light">
+    <section class="section">
       <div class="container">
         <h2>Model: AlexNet for Binary Wildlife Detection</h2>
-        <div class="grid-2">
-          <div>
+
+        <div class="card-grid two-col">
+          <div class="card">
             <h3>Pretrained Backbone</h3>
             <p>
-              Safesight uses the classic <strong>AlexNet</strong> architecture from PyTorch’s 
-              model zoo. The version pretrained on ImageNet is used as a general feature extractor 
-              that is already good at detecting edges, textures, and object parts.
+              Safesight uses the classic <strong>AlexNet</strong> architecture from PyTorch’s model zoo. The
+              version pretrained on ImageNet is used as a general feature extractor that is already good at
+              detecting edges, textures, and object parts.
             </p>
             <ul>
               <li>
-                The early convolutional layers are reused to capture low-level and mid-level 
-                visual features relevant for many object categories, including deer.
+                The early convolutional layers are reused to capture low-level and mid-level visual features
+                relevant for many object categories, including deer.
               </li>
               <li>
-                Only the classifier layers are modified to adapt AlexNet to the 
-                two-class deer vs nodeer problem.
+                This lets the model start from a strong visual prior instead of learning everything from scratch
+                on a small dataset.
               </li>
             </ul>
           </div>
-          <div>
+
+          <div class="card">
             <h3>Classifier Modification</h3>
             <p>
-              The original AlexNet classifier outputs 1000 ImageNet classes. For Safesight, 
-              I replaced the final layers with a new classifier head:
+              The original AlexNet classifier outputs 1000 ImageNet classes. For Safesight, I replaced the final
+              classifier head to adapt the model to the two-class deer vs nodeer problem:
             </p>
             <ul>
               <li>A final fully connected layer with <strong>2 output units</strong> (deer, nodeer).</li>
+              <li>Training with a standard <strong>cross-entropy loss</strong> for binary classification.</li>
               <li>
-                The model is trained with a standard cross-entropy loss, using the new head 
-                to map AlexNet’s features to the two target classes.
-              </li>
-              <li>
-                This simple change allows the model to leverage learned ImageNet features 
-                while focusing on the wildlife detection task.
+                This simple change allows the model to leverage learned ImageNet features while focusing on the
+                wildlife detection task.
               </li>
             </ul>
           </div>
@@ -126,124 +120,95 @@
       </div>
     </section>
 
-    <!-- Training Configuration -->
-    <section class="section-dark">
+    <section class="section section-alt">
       <div class="container">
         <h2>Training Setup</h2>
-        <div class="grid-2">
-          <div>
+        <div class="card-grid two-col">
+          <div class="card">
             <h3>Hyperparameters</h3>
             <ul>
-              <li><strong>Epochs:</strong> 30 for all runs</li>
-              <li><strong>Batch size:</strong> (set in the training script for small-batch SGD/Adam)</li>
-              <li><strong>Optimizer:</strong> a standard gradient-based optimizer (e.g., SGD or Adam)</li>
-              <li><strong>Learning rate:</strong> chosen to be small enough for stable fine-tuning</li>
-              <li><strong>Loss:</strong> Cross-entropy loss for binary classification</li>
+              <li>Epochs: <strong>30</strong> for all runs.</li>
+              <li>Batch size: <strong>small-batch</strong> training suitable for 192 training images.</li>
+              <li>Optimizer: standard gradient-based optimizer (e.g., <strong>SGD</strong> or <strong>Adam</strong>).</li>
+              <li>Learning rate: small enough for stable fine-tuning of the pretrained backbone.</li>
+              <li>Loss: <strong>Cross-entropy</strong> for binary classification.</li>
             </ul>
           </div>
-          <div>
-            <h3>Experiment Tracking</h3>
+
+          <div class="card">
+            <h3>Experiment Tracking (Weights &amp; Biases)</h3>
             <p>
-              All experiments were tracked with <strong>Weights &amp; Biases (W&amp;B)</strong>. 
-              For each run, I logged training and validation loss, accuracy, and summary statistics 
-              such as <code>best_validation_accuracy</code>.
+              All experiments were tracked with <strong>Weights &amp; Biases (W&amp;B)</strong>. For each run, I
+              logged:
             </p>
+            <ul>
+              <li>Training and validation loss.</li>
+              <li>Training and validation accuracy.</li>
+              <li>Summary statistics such as <code>best_validation_accuracy</code>.</li>
+            </ul>
             <p>
-              This made it easy to compare <em>baseline</em>, <em>untrained</em>, and 
-              <em>pretrained</em> AlexNet runs and to clearly see the benefit of transfer learning.
+              This made it easy to compare baseline, untrained, and pretrained AlexNet runs and clearly see the
+              benefit of transfer learning.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Results Section -->
-    <section class="section-light">
+    <section class="section">
       <div class="container">
         <h2>Results</h2>
-        <div class="grid-2">
+
+        <div class="card-grid two-col">
           <div class="card">
             <h3>Quantitative Performance</h3>
             <ul>
               <li>
-                <strong>Best pretrained run:</strong> 
-                <code>pretrained_run_011</code> with 
-                <strong>best_validation_accuracy = 0.9913</strong> (≈ 99.1%).
+                <strong>Best pretrained run:</strong> <code>pretrained_run_011</code> with
+                <code>best_validation_accuracy = 0.9913</code> (≈ 99.1%).
               </li>
               <li>
-                <strong>Best pretrained final metrics:</strong> 
-                train accuracy = 1.0, train loss ≈ 2×10⁻⁵, 
-                validation accuracy ≈ 0.974, validation loss ≈ 0.098.
+                Best pretrained final metrics:
+                <ul>
+                  <li>Training accuracy ≈ <strong>1.0</strong></li>
+                  <li>Training loss ≈ <strong>2 × 10⁻⁵</strong></li>
+                  <li>Validation accuracy ≈ <strong>0.974</strong></li>
+                  <li>Validation loss ≈ <strong>0.098</strong></li>
+                </ul>
               </li>
               <li>
-                <strong>Typical pretrained runs:</strong> 
-                validation accuracy in the range <strong>0.97–0.98</strong>.
+                Typical pretrained runs: validation accuracy in the range
+                <strong>0.97–0.98</strong>.
               </li>
               <li>
-                <strong>Untrained (random init) AlexNet:</strong> 
-                best runs reached <strong>≈ 0.90</strong> validation accuracy, 
+                Untrained (random init) AlexNet: best runs reached ≈ <strong>0.90</strong> validation accuracy,
                 with many runs in the <strong>0.85–0.89</strong> range.
               </li>
               <li>
-                Overall, fine-tuning a pretrained AlexNet gives roughly a 
-                <strong>+7–10 percentage point boost</strong> in validation accuracy 
-                compared to training AlexNet from scratch.
+                Overall, fine-tuning a pretrained AlexNet gives roughly a
+                <strong>+7–10 percentage point boost</strong> in validation accuracy compared to training AlexNet
+                from scratch.
               </li>
             </ul>
           </div>
+
           <div class="card">
-            <h3>Training Curves</h3>
-            <img src="assets/images/training-loss.png" alt="Loss curves" class="plot-img">
-            <img src="assets/images/accuracy-curve.png" alt="Accuracy curves" class="plot-img">
-            <p class="image-caption">
-              Training and validation curves from representative pretrained and untrained runs.
-              Pretrained AlexNet quickly reduces both training and validation loss and converges 
-              to high accuracy, while untrained models take longer to improve and plateau at lower accuracy.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Qualitative Results -->
-    <section class="section-dark">
-      <div class="container">
-        <h2>Qualitative Examples</h2>
-        <div class="grid-2">
-          <div>
-            <h3>Sample Predictions</h3>
-            <img src="assets/images/sample-predictions.png" alt="Sample predictions" class="plot-img">
-            <p class="image-caption">
-              Example predictions from the validation set, including both correct and incorrect cases.
+            <h3>Interpreting the Curves</h3>
+            <p>
+              Looking at the loss and accuracy curves for pretrained vs untrained runs:
             </p>
             <ul>
               <li>
-                The model correctly identifies clear deer images, even when the animal is relatively small 
-                in the frame.
+                Pretrained runs converge faster, with validation loss dropping quickly and stabilizing at a low
+                value.
               </li>
               <li>
-                It usually predicts <em>nodeer</em> correctly on empty road scenes or where animals are clearly absent.
+                Validation accuracy for pretrained runs climbs rapidly to ≈ 97–99%, while untrained runs improve
+                more slowly and plateau at lower accuracy.
               </li>
               <li>
-                Misclassifications often occur when the deer is heavily occluded, very far away, 
-                or when background objects (like branches or signs) resemble animal shapes.
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>Augmented Data</h3>
-            <img src="assets/images/sample-augmented.png" alt="Sample augmented images" class="plot-img">
-            <p class="image-caption">
-              Example augmented images used during training to simulate variations in viewpoint and lighting.
-            </p>
-            <ul>
-              <li>
-                Augmentations help the model become more robust to small changes in angle and cropping, 
-                which are common in real dashcam footage.
-              </li>
-              <li>
-                However, very aggressive augmentations can distort the animal or background too much 
-                and make learning harder, especially with a small dataset.
+                This behavior is consistent with the idea that pretrained features from ImageNet transfer well to
+                the wildlife detection task, especially on a small dataset.
               </li>
             </ul>
           </div>
@@ -251,42 +216,36 @@
       </div>
     </section>
 
-    <!-- Takeaways & Future Work -->
-    <section class="section-light">
+    <section class="section section-alt">
       <div class="container">
-        <h2>What I Learned &amp; Future Work</h2>
-        <div class="grid-2">
-          <div>
+        <h2>Takeaways & Future Work</h2>
+        <div class="card-grid two-col">
+          <div class="card">
             <h3>Key Takeaways</h3>
             <ul>
               <li>
-                <strong>Transfer learning is powerful:</strong> starting from a pretrained AlexNet 
-                gives a huge boost in performance when labeled data is limited.
+                Transfer learning with AlexNet provides a strong performance boost on a small, custom deer vs
+                nodeer dataset.
               </li>
               <li>
-                <strong>Experiment design matters:</strong> logging many runs with W&amp;B made it 
-                clear that model initialization alone can change performance by 7–10 percentage points.
+                Even with limited data, careful organization, basic augmentation, and good experiment tracking
+                can produce a reliable model.
               </li>
               <li>
-                <strong>Small datasets can still be useful:</strong> even with only a few hundred 
-                images, it is possible to build a proof-of-concept wildlife detector.
+                Tools like W&amp;B make it easy to compare many runs and avoid guessing which model is “best”.
               </li>
             </ul>
           </div>
-          <div>
-            <h3>Failure Cases &amp; Future Work</h3>
+
+          <div class="card">
+            <h3>Future Work</h3>
             <ul>
+              <li>Collect more real dashcam footage in diverse weather and lighting conditions.</li>
               <li>
-                The model struggles with challenging conditions such as heavy occlusion, nighttime scenes, 
-                and very small deer far in the distance.
+                Extend the label space from binary deer/nodeer to multiple animal categories and “no animal”.
               </li>
               <li>
-                Collecting a larger and more diverse dataset (different weather, lighting, camera angles, 
-                and animal species) is a key next step.
-              </li>
-              <li>
-                In the future, Safesight could be extended to a real-time dashcam assistant or integrated 
-                into advanced driver assistance systems (ADAS) for wildlife collision prevention.
+                Explore smaller, faster architectures for real-time deployment in vehicles or mobile devices.
               </li>
             </ul>
           </div>
@@ -296,9 +255,10 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-content">
-      <p>&copy; Safesight – AlexNet Wildlife Detection Project</p>
+    <div class="container">
+      <p>© Safesight – AlexNet Wildlife Detection Project</p>
     </div>
   </footer>
 </body>
 </html>
+
