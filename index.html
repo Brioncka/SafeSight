@@ -123,39 +123,43 @@
 
     <!-- Training Dynamics -->
     <section class="section">
-      <div class="container">
-        <h2>Training Dynamics</h2>
-        <div class="card-grid two-col">
-          <div class="card">
-            <h3>Loss Curve</h3>
-            <img
-              src="assets/images/training-loss.png"
-              alt="Training and validation loss curves"
-              class="img-responsive"
-            />
-            <p class="img-caption">
-              Training vs. validation loss over 30 epochs. Pretrained runs quickly drive loss down and stabilize
-              at a low validation loss (around 0.10–0.20), while untrained runs remain noticeably higher and
-              more unstable.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Accuracy Curve</h3>
-            <img
-              src="assets/images/accuracy-curve.png"
-              alt="Training and validation accuracy curves"
-              class="img-responsive"
-            />
-            <p class="img-caption">
-              Training vs. validation accuracy over 30 epochs. Pretrained AlexNet climbs to high validation accuracy
-              (≈ 97–99%) within a few epochs and stays there, whereas untrained AlexNet improves more slowly and
-              plateaus around 85–90%.
-            </p>
-          </div>
-        </div>
+  <div class="container">
+    <h2>Training Dynamics</h2>
+    <div class="card-grid two-col">
+      <div class="card">
+        <h3>AlexNet – Training vs Validation Loss</h3>
+        <img
+          src="assets/images/alexnet_train_valid_loss.png"
+          alt="AlexNet training and validation loss over epochs"
+          class="img-responsive"
+        />
+        <p class="img-caption">
+          Loss curves for pretrained AlexNet with different batch sizes and learning rates.
+          Training loss drops quickly and validation loss stabilizes at a low value (around
+          0.10–0.25) for the best runs, showing that the model is fitting the deer vs nodeer
+          task without severe overfitting.
+        </p>
       </div>
-    </section>
+
+      <div class="card">
+        <h3>AlexNet – Training vs Validation Accuracy</h3>
+        <img
+          src="assets/images/alexnet_train_valid_accuracy.png"
+          alt="AlexNet training and validation accuracy over epochs"
+          class="img-responsive"
+        />
+        <p class="img-caption">
+          Accuracy curves for pretrained AlexNet. Good settings (e.g., batch sizes 16, 32, 64
+          with learning rate 0.0001) reach validation accuracy between about 97–98%, while
+          less optimal settings (like a higher learning rate of 0.001) plateau much lower.
+          This highlights how sensitive AlexNet is to learning rate and augmentation choices
+          on a small dataset.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- Learnings -->
     <section class="section section-alt">
