@@ -167,65 +167,115 @@
     </section>
 
     <section class="section">
-      <div class="container">
-        <h2>Results</h2>
+  <div class="container">
+    <h2>Results & Experiments</h2>
 
-        <div class="card-grid two-col">
-          <div class="card">
-            <h3>Quantitative Performance</h3>
-            <ul>
-              <li>
-                <strong>Best pretrained run:</strong> <code>pretrained_run_011</code> with
-                <code>best_validation_accuracy = 0.9913</code> (≈ 99.1%).
-              </li>
-              <li>
-                Best pretrained final metrics:
-                <ul>
-                  <li>Training accuracy ≈ <strong>1.0</strong></li>
-                  <li>Training loss ≈ <strong>2 × 10⁻⁵</strong></li>
-                  <li>Validation accuracy ≈ <strong>0.974</strong></li>
-                  <li>Validation loss ≈ <strong>0.098</strong></li>
-                </ul>
-              </li>
-              <li>
-                Typical pretrained runs: validation accuracy in the range
-                <strong>0.97–0.98</strong>.
-              </li>
-              <li>
-                Untrained (random init) AlexNet: best runs reached ≈ <strong>0.90</strong> validation accuracy,
-                with many runs in the <strong>0.85–0.89</strong> range.
-              </li>
-              <li>
-                Overall, fine-tuning a pretrained AlexNet gives roughly a
-                <strong>+7–10 percentage point boost</strong> in validation accuracy compared to training AlexNet
-                from scratch.
-              </li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>Interpreting the Curves</h3>
-            <p>
-              Looking at the loss and accuracy curves for pretrained vs untrained runs:
-            </p>
-            <ul>
-              <li>
-                Pretrained runs converge faster, with validation loss dropping quickly and stabilizing at a low
-                value.
-              </li>
-              <li>
-                Validation accuracy for pretrained runs climbs rapidly to ≈ 97–99%, while untrained runs improve
-                more slowly and plateau at lower accuracy.
-              </li>
-              <li>
-                This behavior is consistent with the idea that pretrained features from ImageNet transfer well to
-                the wildlife detection task, especially on a small dataset.
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="card-grid two-col">
+      <div class="card">
+        <h3>Overall Performance</h3>
+        <p>
+          I ran six main experiments on the Safesight deer vs nodeer dataset using AlexNet and ResNet18.
+          Each experiment logged training and validation loss and accuracy to Weights &amp; Biases (W&amp;B),
+          making it easy to compare hyperparameters and architectures.
+        </p>
+        <ul>
+          <li>
+            <strong>Best AlexNet (pretrained):</strong> validation accuracy up to
+            <strong>0.9826 (≈ 98.3%)</strong> with batch size 16, learning rate 0.0001, and data augmentation.
+          </li>
+          <li>
+            <strong>Typical strong AlexNet runs:</strong> validation accuracy in the
+            <strong>0.96–0.98</strong> range for batch sizes 32 and 64 with learning rate 0.0001.
+          </li>
+          <li>
+            <strong>AlexNet (untrained):</strong> training from scratch with random initialization reached
+            only about <strong>0.80 (80%)</strong> best validation accuracy on the same data.
+          </li>
+          <li>
+            <strong>Best ResNet18 (pretrained):</strong> a ResNet18 model with learning rate 0.0001 and
+            augmentation achieved <strong>1.00 (100%)</strong> validation accuracy and very low validation loss.
+          </li>
+        </ul>
+        <p>
+          These results show that transfer learning and a stronger architecture like ResNet18 can make a big
+          difference on a small, real-world style dataset.
+        </p>
       </div>
-    </section>
+
+      <div class="card">
+        <h3>Batch Size &amp; Learning Rate Experiments</h3>
+        <p>
+          To understand how training hyperparameters affect performance, I varied both batch size and learning rate:
+        </p>
+        <ul>
+          <li>
+            <strong>Batch size:</strong> I trained AlexNet with batch sizes
+            <strong>16, 32, and 64</strong>. Smaller batches (bs = 16) gave slightly higher best validation
+            accuracy (≈ 98.3%) on this dataset, while larger batches (bs = 64) still performed very well
+            (≈ 97–96%).
+          </li>
+          <li>
+            <strong>Learning rate:</strong> With a conservative learning rate of <code>0.0001</code>, AlexNet
+            converged smoothly and reached high validation accuracy. When I increased the learning rate to
+            <code>0.001</code>, the model became unstable and validation accuracy stayed near 60%, illustrating
+            how an overly large learning rate can hurt training.
+          </li>
+        </ul>
+        <p>
+          W&amp;B plots of training vs. validation accuracy and loss clearly show the difference between the
+          stable 0.0001 runs and the noisy 0.001 run.
+        </p>
+      </div>
+    </div>
+
+    <div class="card-grid two-col">
+      <div class="card">
+        <h3>Data Augmentation vs. No Augmentation</h3>
+        <p>
+          I also compared runs with and without data augmentation. Augmented runs used random horizontal flips and
+          standard ImageNet normalization; non-augmented runs only resized and normalized the images.
+        </p>
+        <ul>
+          <li>
+            <strong>With augmentation:</strong> multiple AlexNet runs with augmentation achieved high validation
+            accuracy (up to ≈ 98.3%), and the learning curves showed smoother generalization to the validation set.
+          </li>
+          <li>
+            <strong>Without augmentation:</strong> a comparable AlexNet run without augmentation still reached
+            strong validation accuracy (≈ 96–97%), but augmentation is expected to help robustness, especially
+            as the dataset grows or includes more varied conditions.
+          </li>
+        </ul>
+        <p>
+          For a safety-critical application like wildlife detection while driving, augmentation helps the model
+          handle small viewpoint and lighting changes that drivers experience in the real world.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>AlexNet vs. ResNet18</h3>
+        <p>
+          Finally, I compared AlexNet to a deeper architecture, <strong>ResNet18</strong>, using the same dataset
+          and a similar training setup (batch size 32, learning rate 0.0001, augmentation on).
+        </p>
+        <ul>
+          <li>
+            <strong>AlexNet (pretrained):</strong> best validation accuracy around <strong>98%</strong>.
+          </li>
+          <li>
+            <strong>ResNet18 (pretrained):</strong> reached <strong>100%</strong> validation accuracy with very
+            low validation loss (≈ 0.003), and both training and validation accuracy quickly climbed to 1.0.
+          </li>
+        </ul>
+        <p>
+          This comparison suggests that modern residual networks like ResNet18 can learn even more effective
+          features for Safesight’s deer vs nodeer classification task, especially when combined with transfer
+          learning from ImageNet.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section class="section section-alt">
       <div class="container">
