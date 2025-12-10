@@ -49,4 +49,5 @@ https://wandb.ai/brussell2025-florida-atlantic-university/alexnet_map2192_experi
 https://docs.google.com/presentation/d/1W0NwtpBbSAha2-NbtLDMnRulU4u7wHnxlnt4bIGYMxY/edit?usp=sharing
 
 # Video Presentation Link
+https://view.knowledgevision.com/presentation/98bba02bff74438698bb2c1ffd3940dd
 
