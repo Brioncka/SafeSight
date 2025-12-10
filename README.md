@@ -46,7 +46,7 @@ https://brioncka.github.io/SafeSight/
 https://wandb.ai/brussell2025-florida-atlantic-university/alexnet_map2192_experiments?nw=nwuserbrussell2025
 
 # Poster Link
-
+https://docs.google.com/presentation/d/1W0NwtpBbSAha2-NbtLDMnRulU4u7wHnxlnt4bIGYMxY/edit?usp=sharing
 
 # Video Presentation Link
 
